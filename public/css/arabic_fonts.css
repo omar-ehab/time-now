@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "FF Shamel Family Sans One Bold";
+    src: url(../fonts/arabic/ArbFONTS-FFShamelFamily-SansOneBold.ttf);
+}
+
+@font-face {
+    font-family: "FF Shamel Family Sans One Book";
+    src: url(../fonts/arabic/ArbFONTS-FFShamelFamily-SansOneBook.ttf);
+}
+
+@font-face {
+    font-family: "helveticabold";
+    src: url(../fonts/arabic/HelveticaNeue-Reg.ttf);
+}
