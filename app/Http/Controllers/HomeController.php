@@ -10,7 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $userTimezone = Helper::getUserTimezone();
+        $data = Helper::getUserTimezone();
+        $userTimezone = $data['timezone'];
         $timezone = Timezone::where('name', $userTimezone)->firstOrFail();
         $country = $timezone->country;
         $cityName = substr($timezone->name, strrpos($timezone->name, '/') + 1);
@@ -21,8 +22,9 @@ class HomeController extends Controller
         $hoursToSunset = gmdate('H:i', $sunSet->diffInSeconds(Carbon::now()));
         $formatedHoursToSunset = substr($hoursToSunset, 0, 2) . 'h ' . substr($hoursToSunset, 3, 4) . 'm';
 
-        $now = Carbon::createFromTimestamp(Carbon::now()->timestamp, $userTimezone)->format('h:i:s');
+        $now = Carbon::createFromTimestamp(Carbon::now()->timestamp, $userTimezone);
+        $getOffset = $now->getOffset() / 60 / 60;
 
-        return view('index', compact('now', 'country', 'displayName', 'sunRise', 'sunSet', 'formatedHoursToSunset'));
+        return view('index', compact('now', 'country', 'displayName', 'sunRise', 'sunSet', 'formatedHoursToSunset', 'getOffset'));
     }
 }

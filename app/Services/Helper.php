@@ -12,7 +12,10 @@ class Helper
         $url = 'http://ip-api.com/json/' . $ip;
         $tz = file_get_contents($url);
         $tz = json_decode($tz, true)['timezone'];
-        return $tz;
+        $data['timezone'] = $tz;
+        $data['city'] = json_decode($tz, true)['city'];
+        $data['country'] = json_decode($tz, true)['country'];
+        return $data;
     }
 
     public static function getDayData($lat, $lng)

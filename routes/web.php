@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/country/{country}/{city_name}', 'CountryController@show')->name('country.show');
 Route::get('/search', 'SearchController@search')->name('search');
-Route::get('/country/{country}', 'CountryController@show')->name('country.show');

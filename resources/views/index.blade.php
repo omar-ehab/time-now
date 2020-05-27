@@ -9,16 +9,19 @@
                 <div class="col">
                     <div class="d-flex justify-content-center align-items-center flex-column">
                         <p class="city">Time in <a
-                                href="{{ route('country.show', $country->id) }}">{{ $displayName }}</a> Now</p>
+                                href="{{ route('country.show', ['country' => $country->id, 'city_name' => $displayName]) }}">{{ $displayName }}</a>
+                            Now</p>
                         <p class="time-notic d-none">Your clock is <span>0.8</span> seconds ahead.</p>
                     </div>
-                    <div id="real-timer-hidden" class="d-none">{{ $now }}</div>
+                    <div id="time-offset" class="d-none">{{ $getOffset }}</div>
+                    <div id="real-timer-hidden" class="d-none">{{ $now->format('H:i:s') }}</div>
                     <div id="real-timer" class="d-flex justify-content-center"></div>
                     <div class="d-flex justify-content-center align-items-center flex-column date-details">
                         <p>Sunday, February 23, 2020, week 8</p>
                         <p>Sun: ↑ {{ $sunRise->format("H:i") }} ↓ {{ $sunSet->format("H:i") }}
                             ({{ $formatedHoursToSunset }})</p>
-                        <a href="{{ route('country.show', $country->id) }}" class="more-info">
+                        <a href="{{ route('country.show', ['country' => $country->id, 'city_name' => $displayName]) }}"
+                           class="more-info">
                             More info
                         </a>
                     </div>

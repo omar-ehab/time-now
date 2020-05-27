@@ -656,7 +656,7 @@ a.option-text:hover {
     width: 2px;
     height: 350px;
     position: absolute;
-    left: 385px;
+    left: 400px;
     background-color: #009EFF;
 }
 
@@ -682,7 +682,8 @@ a.option-text:hover {
     display: flex;
     align-items: center;
     padding: 5px 10px;
-    margin-left: 97px;
+    margin-left: 115px;
+    max-width: 77% !important;
 }
 
 .chart-btns {

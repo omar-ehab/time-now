@@ -30,12 +30,14 @@ $(document).ready(function () {
         $('.time-notic span').text(diffTime / 1000)
     }
 
+    let offset = parseInt($('#time-offset').text());
 
     function startTimeWithSeconds() {
-        let frontendDate = new Date();
-        let h = frontendDate.getHours(),
-            m = frontendDate.getMinutes(),
-            s = frontendDate.getSeconds();
+        let localOffset = new Date().getTimezoneOffset() / 60;
+        backendDate = new Date().addHours(offset + localOffset);
+        let h = backendDate.getHours(),
+            m = backendDate.getMinutes(),
+            s = backendDate.getSeconds();
 
         h = checkTime(h);
         m = checkTime(m);
@@ -50,6 +52,11 @@ $(document).ready(function () {
             i = "0" + i
         }
         return i;
+    }
+
+    Date.prototype.addHours = function (h) {
+        this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+        return this;
     }
 
     startTimeWithSeconds();
@@ -89,15 +96,16 @@ $(document).ready(function () {
         let searchVal = searchInput.val();
         $('.results-list').empty();
         $.ajax({
-            url: `search?city=${searchVal}`,
+            url: `/search?city=${searchVal}`,
             cache: false,
             success: function (response) {
-                if (response.length > 0) {
-                    $.each(response, function (key, val) {
+                console.log(response.data);
+                if (response.data.length > 0) {
+                    $.each(response.data, function (key, val) {
                         console.log(val);
                         $('.results-list').append(`
                             <li>
-                                <a href="country/${val.id}">${val.en_capital} - ${val.en_name}</a>
+                                <a href="/country/${val.id}/${val.name}">${val.name}</a>
                             </li>
                         `);
                     })
