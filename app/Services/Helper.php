@@ -11,8 +11,7 @@ class Helper
         $ip = file_get_contents("http://ipecho.net/plain");
         $url = 'http://ip-api.com/json/' . $ip;
         $tz = file_get_contents($url);
-        $tz = json_decode($tz, true)['timezone'];
-        $data['timezone'] = $tz;
+        $data['timezone'] = json_decode($tz, true)['timezone'];
         $data['city'] = json_decode($tz, true)['city'];
         $data['country'] = json_decode($tz, true)['country'];
         return $data;
