@@ -8,71 +8,85 @@
             <div class="row time-details-row">
                 <div class="col">
                     <div class="d-flex justify-content-center align-items-center flex-column">
-                        <p class="city">Time in <a
+                        <p class="city">@lang('site.timeIn') <a
                                 href="{{ route('country.show', ['country' => $country->id, 'city_name' => $city_name]) }}">{{ $displayName }}</a>
-                            Now</p>
+                            @lang('site.now')</p>
                     </div>
                     <div id="time-offset" class="d-none">{{ $getOffset }}</div>
                     <div id="real-timer-hidden" class="d-none">{{ $now->format('H:s:i') }}</div>
                     <div id="real-timer" class="d-flex justify-content-center"></div>
                     <div class="d-flex justify-content-center align-items-center flex-column date-details">
-                        <p>Sunday, February 23, 2020, week 8</p>
-                        <p>Sun: ↑ {{ $sunRise->format("H:i") }} ↓ {{ $sunSet->format("H:i") }}
+                        <p>{{ \Carbon\Carbon::now()->format('l') }}
+                            , {{ \Carbon\Carbon::now()->format('F') }} {{ \Carbon\Carbon::now()->format('d') }}
+                            , {{ \Carbon\Carbon::now()->format('Y') }},
+                            @lang('site.week') {{ \Carbon\Carbon::now()->weekOfYear }}</p>
+                        <p>@lang('site.sun'): ↑ {{ $sunRise->format("H:i") }} ↓ {{ $sunSet->format("H:i") }}
                             ({{ $formatedHoursToSunset }})</p>
-                        <a href="#" class="more-info">
-                            More info
+                        <a href="{{ route('country.show', ['country' => $country->id, 'city_name' => $displayName]) }}"
+                           class="more-info">
+                            @lang('site.moreInfo')
                         </a>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row most_popular_cities">
-                    <div class="col box">
-                        <div class="d-flex justify-content-center align-items-center flex-column box-content">
-                            <div class="time"></div>
-                            <div class="city">Los Angeles</div>
-                            <div class="d-none timezone">America/Los_Angeles</div>
+                    @if(app()->getLocale() == 'ar')
+                        <div class="col box">
+                            <div class="d-flex justify-content-center align-items-center flex-column box-content">
+                                <div class="time"></div>
+                                <div class="city">مكة</div>
+                                <div class="d-none timezone">Asia/Riyadh</div>
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="col box">
+                            <div class="d-flex justify-content-center align-items-center flex-column box-content">
+                                <div class="time"></div>
+                                <div class="city">Los Angeles</div>
+                                <div class="d-none timezone">America/Los_Angeles</div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">New York</div>
+                            <div class="city">@lang('site.new_york')</div>
                             <div class="d-none timezone">America/New_York</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">London</div>
+                            <div class="city">@lang('site.london')</div>
                             <div class="d-none timezone">Europe/London</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Paris</div>
+                            <div class="city">@lang('site.paris')</div>
                             <div class="d-none timezone">Europe/Paris</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Moscow</div>
+                            <div class="city">@lang('site.moscow')</div>
                             <div class="d-none timezone">Europe/Moscow</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Beijing</div>
+                            <div class="city">@lang('site.beijing')</div>
                             <div class="d-none timezone">Asia/Shanghai</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Tokyo</div>
+                            <div class="city">@lang('site.tokyo')</div>
                             <div class="d-none timezone">Asia/Tokyo</div>
                         </div>
                     </div>
@@ -83,19 +97,19 @@
                     <div class="col">
                         <a href="#" class="facebook">
                             <img src="{{ asset('images/icons/fb.png') }}" alt="facebook logo">
-                            Share on Facebook
+                            @lang('site.shareOn') @lang('site.fb')
                         </a>
                     </div>
                     <div class="col">
                         <a href="#" class="twitter">
                             <img src="{{ asset('images/icons/twitter.png') }}" alt="twitter logo">
-                            Share on Twitter
+                            @lang('site.shareOn') @lang('site.tw')
                         </a>
                     </div>
                     <div class="col">
                         <a href="#" class="whatsapp">
                             <img src="{{ asset('images/icons/whatsapp.png') }}" alt="whatsapp logo">
-                            Share on Whatsapp
+                            @lang('site.shareOn') @lang('site.wap')
                         </a>
                     </div>
                 </div>
@@ -106,53 +120,60 @@
         <div class="container-fluid py-5">
             <div class="row mx-5 flex-column">
                 <div class="timezone mb-5">
-                    <div class="title">Timezone</div>
+                    <div class="title">@lang('site.timezone')</div>
                     <ul class="ul">
-                        <li>Currently Eastern Standard Time (EST), UTC {{ abs($getOffset) }}</li>
-                        <li>Daylight saving time (Eastern Daylight Time (EDT), UTC -4) starts March 8, 2020</li>
+                        <li>@lang('site.currently') Eastern Standard Time (EST), UTC {{ abs($getOffset) }}</li>
+                        @if(app()->getLocale() == 'en')
+                            <li>Daylight saving time (Eastern Daylight Time (EDT), UTC -4) starts March 8, 2020</li>
+                        @else
+                            <li>التوقيت الصيفي (Eastern Daylight Time (EDT), UTC -4) يبدأ مارس 8, 2020</li>
+                        @endif
                         <li>{{ str_replace('_', ' ', substr($timezone->name, strrpos($timezone->name, '/') + 1)) }} is
                             {{ abs($getOffset) }}
-                            hours {{ $getOffset > 0 ? 'after' : 'behind' }} Cairo.
+                            @lang('site.hours') {{ $getOffset > 0 ? __('site.after') : __('site.behind') }} Cairo.
                         </li>
-                        <li>The IANA time zone identifier
-                            for {{ str_replace('_', ' ', substr($timezone->name, strrpos($timezone->name, '/') + 1)) }}
-                            is {{ $timezone->name }}</li>
+                        <li>@lang('site.timezoneId')
+                            @lang('site.for'){{ str_replace('_', ' ', substr($timezone->name, strrpos($timezone->name, '/') + 1)) }}
+                            @lang('site.is') {{ $timezone->name }}</li>
                     </ul>
                     <div class="w-100 d-flex timezone-btns">
                         <a href="#">
                             <div class="btn-container">
-                                Read about New York in Wikipedia
+                                @lang('site.readAbout') {{ str_replace('_', ' ', substr($timezone->name, strrpos($timezone->name, '/') + 1)) }}
+                                @lang('site.inWiki')
                             </div>
                         </a>
                         <a href="#">
                             <div class="btn-container mx-4">
-                                Make New York time default
+                                @lang('site.make') {{ str_replace('_', ' ', substr($timezone->name, strrpos($timezone->name, '/') + 1)) }}
+                                @lang('site.default')
                             </div>
                         </a>
                         <a href="#">
                             <div class="btn-container">
-                                Add to favorite locations
+                                @lang('site.addToFav')
                             </div>
                         </a>
                     </div>
                 </div>
                 <div class="time-details mb-5">
-                    <div class="title">Sunrise, sunset, day length and solar time for New York</div>
+                    <div class="title">@lang('site.sunTitle')</div>
                     <ul class="ul">
-                        <li>Sunrise: {{ $sunRise->format("H:i") }}</li>
-                        <li>Sunset: {{ $sunSet->format("H:i") }}</li>
-                        <li>Day length: {{ $formatedDayLength }}</li>
-                        <li>Solar noon: {{ $solarNoon->format('H:i') }}</li>
+                        <li>@lang('site.sunrise'): {{ $sunRise->format("H:i") }}</li>
+                        <li>@lang('site.sunset'): {{ $sunSet->format("H:i") }}</li>
+                        <li>@lang('site.dayLength'): {{ $formatedDayLength }}</li>
+                        <li>@lang('site.solarNoon'): {{ $solarNoon->format('H:i') }}</li>
                     </ul>
                 </div>
                 <div class="time-difference mb-5">
-                    <div class="title">Time difference from New York</div>
+                    <div
+                        class="title">@lang('site.timeDiffrenceFrom') {{ str_replace('_', ' ', substr($timezone->name, strrpos($timezone->name, '/') + 1)) }}</div>
                     <div class="chart">
                         <div class="row">
                             <div class="separator"></div>
                             <div class="col-12">
                                 <div class="city-row d-flex" id="city-1">
-                                    <div class="city-name">Los Angeles</div>
+                                    <div class="city-name">@lang('site.los_angeles')</div>
                                     <div
                                         class="{{ $timeDiffrence['los_angeles'] < 0 ? 'before' : 'after' }}"
                                         style="width: {{ $timeDiffrence['los_angeles'] / 2 * 10 == 0 ? 'auto' : $timeDiffrence['los_angeles'] / 2 * 10 }}%">
@@ -161,7 +182,7 @@
                                     </div>
                                 </div>
                                 <div class="city-row d-flex" id="city-2">
-                                    <div class="city-name">London</div>
+                                    <div class="city-name">@lang('site.london')</div>
 
                                     <div class="{{ $timeDiffrence['london'] < 0 ? 'before' : 'after' }}"
                                          style="width: {{ $timeDiffrence['london'] / 2 * 10 == 0 ? 'auto' : $timeDiffrence['london'] / 2 * 10 }}%">{{ $timeDiffrence['london'] >= 0 ? '+' : '' }}{{ $timeDiffrence['london'] }}
@@ -170,7 +191,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-3">
                                     <div class="city-name">
-                                        UCT
+                                        @lang('site.uct')
                                     </div>
                                     <div class="{{ $timeDiffrence['uct'] < 0 ? 'before' : 'after' }}"
                                          style="width: {{ $timeDiffrence['uct'] / 2 * 10 == 0 ? 'auto' : $timeDiffrence['uct'] / 2 * 10 }}%">{{ $timeDiffrence['uct'] >= 0 ? '+' : '' }}{{ $timeDiffrence['uct'] }}
@@ -179,7 +200,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-4">
                                     <div class="city-name">
-                                        Paris
+                                        @lang('site.paris')
                                     </div>
                                     <div class="{{ $timeDiffrence['paris'] < 0 ? 'before' : 'after' }}"
                                          style="width: {{ $timeDiffrence['paris'] / 2 * 10 == 0 ? 'auto' : $timeDiffrence['paris'] / 2 * 10 }}%">{{ $timeDiffrence['paris'] >= 0 ? '+' : '' }}{{ $timeDiffrence['paris'] }}
@@ -188,7 +209,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-5">
                                     <div class="city-name">
-                                        Istanbul
+                                        @lang('site.istanbul')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['istanbul'] < 0 ? 'before' : 'after' }}"
@@ -198,7 +219,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-6">
                                     <div class="city-name">
-                                        Sydney
+                                        @lang('site.sydney')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['sydney'] < 0 ? 'before' : 'after' }}"
@@ -208,7 +229,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-7">
                                     <div class="city-name">
-                                        Dubai
+                                        @lang('site.dubai')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['dubai'] < 0 ? 'before' : 'after' }}"
@@ -218,7 +239,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-8">
                                     <div class="city-name">
-                                        India
+                                        @lang('site.india')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['india'] < 0 ? 'before' : 'after' }}"
@@ -228,7 +249,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-9">
                                     <div class="city-name">
-                                        Beijing
+                                        @lang('site.beijing')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['beijing'] < 0 ? 'before' : 'after' }}"
@@ -238,7 +259,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-10">
                                     <div class="city-name">
-                                        Singapore
+                                        @lang('site.singapore')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['singapore'] < 0 ? 'before' : 'after' }}"
@@ -248,7 +269,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-11">
                                     <div class="city-name">
-                                        Tokyo
+                                        @lang('site.tokyo')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['tokyo'] < 0 ? 'before' : 'after' }}"
@@ -258,7 +279,7 @@
                                 </div>
                                 <div class="city-row d-flex" id="city-12">
                                     <div class="city-name">
-                                        Moscow
+                                        @lang('site.moscow')
                                     </div>
 
                                     <div class="{{ $timeDiffrence['moscow'] < 0 ? 'before' : 'after' }}"
@@ -272,19 +293,19 @@
                     <div class="d-flex mt-5 chart-btns">
                         <a href="#">
                             <div class="btn-container">
-                                Compare other time zones
+                                @lang('site.compareTimezones')
                             </div>
                         </a>
                     </div>
                 </div>
 
                 <div class="temp mb-5">
-                    <div class="title">Annual average temperatures for New York 1895-2018</div>
+                    <div class="title">@lang('site.tempAvr')</div>
                     <div class="desc">
-                        Each of the stripes represents one year.<br/>
-                        Graphics by Ed Hawkins, using data from NOAA.<br/>
-                        See <a href="https://showyourstripes.info/"
-                               style="color: inherit">https://showyourstripes.info/</a>
+                        @lang('site.lineYear')<br/>
+                        @lang('site.graphicsBy')<br/>
+                        @lang('site.see') <a href="https://showyourstripes.info/"
+                                             style="color: inherit">https://showyourstripes.info/</a>
                     </div>
                 </div>
 

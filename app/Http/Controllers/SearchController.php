@@ -24,9 +24,7 @@ class SearchController extends Controller
         foreach ($results as $result) {
             $c = Country::with('timezones')->where('id', $result->id)->first();
             foreach ($c->timezones as $timezone) {
-                if (strpos(strtolower($timezone->name), strtolower($request->city))) {
-                    array_push($timezonesFinal['data'], ['id' => $c->id, 'name' => substr($timezone->name, strrpos($timezone->name, '/') + 1) . ', ' . $c->en_name]);
-                }
+                array_push($timezonesFinal['data'], ['id' => $c->id, 'name' => substr($timezone->name, strrpos($timezone->name, '/') + 1) . ', ' . $c->en_name]);
             }
         }
         $timezonesFinal['data'] = array_unique($timezonesFinal['data'], SORT_REGULAR);

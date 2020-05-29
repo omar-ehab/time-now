@@ -20,7 +20,8 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <div class="search-container">
                     <form class="form-inline d-flex justify-content-center align-items-center w-100 search-form">
-                        <input class="mr-sm-2" type="search" name="search" id="search" placeholder="Search for country or city"
+                        <input class="mr-sm-2" type="search" name="search" id="search"
+                               placeholder="@lang('site.searchContent')"
                                aria-label="Search">
                         <button class="search-button p-2" type="submit">
                             <img src="{{ asset('images/icons/search.png') }}" alt="Search Icons">
@@ -36,7 +37,7 @@
                     <ul class="navbar-nav mr-auto options">
                         <li class="nav-item mr-2">
                             <div class="toggle-container d-flex">
-                                <p class="option-text mr-3 mb-0" id="theme-text">Light Mode</p>
+                                <p class="option-text mr-3 mb-0" id="theme-text">@lang('site.darkMode')</p>
                                 <input type="checkbox" id="switch" name="theme"/>
                                 <label for="switch">Toggle</label>
                             </div>
@@ -45,12 +46,12 @@
                             <a class="p-0 option-text d-flex align-items-center justify-content-center" href="#"
                                id="language" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                English
+                                {{ app()->getLocale() == 'en' ? 'English' : 'العربية' }}
                                 <img src="{{ asset('images/icons/light_arrow.png') }}" alt="arrow" class="arrow">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="languages">
-                                <a class="dropdown-item arabic-text" href="#">العربية</a>
-                                <a class="dropdown-item english-text" href="#">English</a>
+                                <a class="dropdown-item arabic-text" href="{{ route('setLocale', 'ar') }}">العربية</a>
+                                <a class="dropdown-item english-text" href="{{ route('setLocale', 'en') }}">English</a>
                             </div>
                         </li>
                     </ul>

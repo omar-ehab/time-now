@@ -15,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('locale/{locale}', 'LocalizationController@setLocale')->name('setLocale');
+
 Route::get('/country/{country}/{city_name}', 'CountryController@show')->name('country.show');
+
 Route::get('/search', 'SearchController@search')->name('search');

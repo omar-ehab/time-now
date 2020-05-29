@@ -8,73 +8,90 @@
             <div class="row time-details-row">
                 <div class="col">
                     <div class="d-flex justify-content-center align-items-center flex-column">
-                        <p class="city">Time in <a
+                        <p class="city">@lang('site.timeIn') <a
                                 href="{{ route('country.show', ['country' => $country->id, 'city_name' => $displayName]) }}">{{ $displayName }}</a>
-                            Now</p>
-                        <p class="time-notic d-none">Your clock is <span>0.8</span> seconds ahead.</p>
+                            @lang('site.now')</p>
+                        @if(app()->getLocale() == 'en')
+                            <p class="time-notic d-none">Your clock is <span>0.8</span> seconds ahead.</p>
+                        @else
+                            <p class="time-notic d-none">ساعتك متقدمة ب <span>0.8</span> ثانيه</p>
+                        @endif
                     </div>
                     <div id="time-offset" class="d-none">{{ $getOffset }}</div>
                     <div id="real-timer-hidden" class="d-none">{{ $now->format('H:i:s') }}</div>
                     <div id="real-timer" class="d-flex justify-content-center"></div>
                     <div class="d-flex justify-content-center align-items-center flex-column date-details">
-                        <p>Sunday, February 23, 2020, week 8</p>
-                        <p>Sun: ↑ {{ $sunRise->format("H:i") }} ↓ {{ $sunSet->format("H:i") }}
+                        <p>{{ \Carbon\Carbon::now()->format('l') }}
+                            , {{ \Carbon\Carbon::now()->format('F') }} {{ \Carbon\Carbon::now()->format('d') }}
+                            , {{ \Carbon\Carbon::now()->format('Y') }},
+                            @lang('site.week') {{ \Carbon\Carbon::now()->weekOfYear }}</p>
+                        <p>@lang('site.sun'): ↑ {{ $sunRise->format("H:i") }} ↓ {{ $sunSet->format("H:i") }}
                             ({{ $formatedHoursToSunset }})</p>
                         <a href="{{ route('country.show', ['country' => $country->id, 'city_name' => $displayName]) }}"
                            class="more-info">
-                            More info
+                            @lang('site.moreInfo')
                         </a>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row most_popular_cities">
-                    <div class="col box">
-                        <div class="d-flex justify-content-center align-items-center flex-column box-content">
-                            <div class="time"></div>
-                            <div class="city">Los Angeles</div>
-                            <div class="d-none timezone">America/Los_Angeles</div>
+                    @if(app()->getLocale() == 'ar')
+                        <div class="col box">
+                            <div class="d-flex justify-content-center align-items-center flex-column box-content">
+                                <div class="time"></div>
+                                <div class="city">مكة</div>
+                                <div class="d-none timezone">Asia/Riyadh</div>
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="col box">
+                            <div class="d-flex justify-content-center align-items-center flex-column box-content">
+                                <div class="time"></div>
+                                <div class="city">Los Angeles</div>
+                                <div class="d-none timezone">America/Los_Angeles</div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">New York</div>
+                            <div class="city">@lang('site.new_york')</div>
                             <div class="d-none timezone">America/New_York</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">London</div>
+                            <div class="city">@lang('site.london')</div>
                             <div class="d-none timezone">Europe/London</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Paris</div>
+                            <div class="city">@lang('site.paris')</div>
                             <div class="d-none timezone">Europe/Paris</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Moscow</div>
+                            <div class="city">@lang('site.moscow')</div>
                             <div class="d-none timezone">Europe/Moscow</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Beijing</div>
+                            <div class="city">@lang('site.beijing')</div>
                             <div class="d-none timezone">Asia/Shanghai</div>
                         </div>
                     </div>
                     <div class="col box">
                         <div class="d-flex justify-content-center align-items-center flex-column box-content">
                             <div class="time"></div>
-                            <div class="city">Tokyo</div>
+                            <div class="city">@lang('site.tokyo')</div>
                             <div class="d-none timezone">Asia/Tokyo</div>
                         </div>
                     </div>
@@ -84,20 +101,20 @@
                 <div class="row justify-content-center align-items-center">
                     <div class="col">
                         <a href="#" class="facebook">
-                            <img src="images/icons/fb.png" alt="facebook logo">
-                            Share on Facebook
+                            <img src="{{ asset('images/icons/fb.png') }}" alt="facebook logo">
+                            @lang('site.shareOn') @lang('site.fb')
                         </a>
                     </div>
                     <div class="col">
                         <a href="#" class="twitter">
-                            <img src="images/icons/twitter.png" alt="twitter logo">
-                            Share on Twitter
+                            <img src="{{ asset('images/icons/twitter.png') }}" alt="twitter logo">
+                            @lang('site.shareOn') @lang('site.tw')
                         </a>
                     </div>
                     <div class="col">
                         <a href="#" class="whatsapp">
-                            <img src="images/icons/whatsapp.png" alt="whatsapp logo">
-                            Share on Whatsapp
+                            <img src="{{ asset('images/icons/whatsapp.png') }}" alt="whatsapp logo">
+                            @lang('site.shareOn') @lang('site.wap')
                         </a>
                     </div>
                 </div>
@@ -345,13 +362,13 @@
             </div>
             <div class="row justify-content-center footer-buttons">
                 <a href="#" class="active">
-                    <span class="">UTC</span>
+                    <span class="">@lang('site.uct')</span>
                 </a>
                 <a href="#">
-                    <span class="buttons">GMT</span>
+                    <span class="buttons">@lang('site.gmt')</span>
                 </a>
                 <a href="#">
-                    <span class="buttons">CET</span>
+                    <span class="buttons">@lang('site.cet')</span>
                 </a>
             </div>
             <div class="row justify-content-center">
@@ -360,14 +377,14 @@
             <div class="row justify-content-center footer">
                 <div class="footer-container">
                     <div class="row justify-content-center">
-                        <a href="#">Pacific Time</a>
-                        <a href="#">Mountain Time</a>
-                        <a href="#">Central Time</a>
-                        <a href="#">Eastern Time</a>
+                        <a href="#">@lang('site.pt')</a>
+                        <a href="#">@lang('site.mt')</a>
+                        <a href="#">@lang('site.ct')</a>
+                        <a href="#">@lang('site.et')</a>
                     </div>
                     <div class="row justify-content-center">
-                        <a href="#">China Standard Time</a>
-                        <a href="#">India Standard Time</a>
+                        <a href="#">@lang('site.cst')</a>
+                        <a href="#">@lang('site.ist')</a>
                     </div>
                 </div>
             </div>

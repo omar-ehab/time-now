@@ -3,14 +3,11 @@ $(document).ready(function () {
     let checkbox = $('input[name=theme]');
     checkbox.on('change', function () {
         if (this.checked) {
-            document.documentElement.setAttribute('data-theme', 'dark')
-            $('#theme-text').text('Dark Mode');
-            $(".arrow").attr("src", "images/icons/dark_arrow.png");
+            document.documentElement.setAttribute('data-theme', 'dark');
+            $(".arrow").attr("src", "/images/icons/dark_arrow.png");
         } else {
-
-            document.documentElement.setAttribute('data-theme', 'light')
-            $('#theme-text').text('Light Mode');
-            $(".arrow").attr("src", "images/icons/light_arrow.png");
+            document.documentElement.setAttribute('data-theme', 'light');
+            $(".arrow").attr("src", "/images/icons/light_arrow.png");
         }
     });
 

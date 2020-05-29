@@ -10,6 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+
         $data = Helper::getUserTimezone();
         $userTimezone = $data['timezone'];
         $timezone = Timezone::where('name', $userTimezone)->firstOrFail();
@@ -20,8 +21,11 @@ class HomeController extends Controller
         $sunRise = Carbon::parse($sunData->sunrise);
         $sunSet = Carbon::parse($sunData->sunset);
         $hoursToSunset = gmdate('H:i', $sunSet->diffInSeconds(Carbon::now()));
-        $formatedHoursToSunset = substr($hoursToSunset, 0, 2) . 'h ' . substr($hoursToSunset, 3, 4) . 'm';
-
+        if (app()->getLocale() == 'en') {
+            $formatedHoursToSunset = substr($hoursToSunset, 0, 2) . 'h ' . substr($hoursToSunset, 3, 4) . 'm';
+        } else {
+            $formatedHoursToSunset = substr($hoursToSunset, 0, 2) . 'س ' . substr($hoursToSunset, 3, 4) . 'د';
+        }
         $now = Carbon::createFromTimestamp(Carbon::now()->timestamp, $userTimezone);
         $getOffset = $now->getOffset() / 60 / 60;
 

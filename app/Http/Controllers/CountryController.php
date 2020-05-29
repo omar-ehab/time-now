@@ -19,7 +19,11 @@ class CountryController extends Controller
         $sunRise = Carbon::parse($sunData->sunrise);
         $sunSet = Carbon::parse($sunData->sunset);
         $hoursToSunset = gmdate('H:i', $sunSet->diffInSeconds(Carbon::now()));
-        $formatedHoursToSunset = substr($hoursToSunset, 0, 2) . 'h ' . substr($hoursToSunset, 3, 4) . 'm';
+        if (app()->getLocale() == 'en') {
+            $formatedHoursToSunset = substr($hoursToSunset, 0, 2) . 'h ' . substr($hoursToSunset, 3, 4) . 'm';
+        } else {
+            $formatedHoursToSunset = substr($hoursToSunset, 0, 2) . 'س ' . substr($hoursToSunset, 3, 4) . 'د';
+        }
         $getOffset = $now->getOffset() / 60 / 60;
         $dayLength = (string)number_format($sunData->day_length / 60 / 60, 2);
         $formatedDayLength = substr($dayLength, 0, strpos($dayLength, '.')) . 'h ' . substr($dayLength, strpos($dayLength, '.') + 1, strlen($dayLength)) . 'm';
